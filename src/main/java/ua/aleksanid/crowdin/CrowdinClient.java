@@ -48,7 +48,7 @@ public class CrowdinClient {
         } catch (HttpException httpException) {
             throw new RuntimeException("Error from Crowdin API. Status: " + httpException.getError().code + ". Message: " + httpException.getError().message);
         } catch (HttpBadRequestException httpBadRequestException) {
-            throw new RuntimeException("Error from Crowdin API. Bad Request. Next errors supplies: " + httpBadRequestException
+            throw new RuntimeException("Error from Crowdin API. Bad Request. Next errors supplied: " + httpBadRequestException
                     .getErrors()
                     .stream()
                     .map(HttpBadRequestException.ErrorHolder::getError)

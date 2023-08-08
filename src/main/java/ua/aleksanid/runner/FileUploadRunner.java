@@ -1,10 +1,10 @@
 package ua.aleksanid.runner;
 
 import com.crowdin.client.storage.model.Storage;
+import ua.aleksanid.arguments.ArgumentTransformer;
 import ua.aleksanid.crowdin.CrowdinClient;
 import ua.aleksanid.file.FileFinder;
 import ua.aleksanid.models.UploadArguments;
-import ua.aleksanid.arguments.ArgumentTransformer;
 
 import java.nio.file.Path;
 import java.util.List;
