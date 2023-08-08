@@ -42,6 +42,6 @@ class ArgumentTransformerTest {
                 "Expected RuntimeException due to invalid project ID"
         );
 
-        assertEquals("invalidId is not valid project Id.", exception.getMessage());
+        assertEquals("invalidId is not valid project Id. Must be a number.", exception.getMessage());
     }
 }

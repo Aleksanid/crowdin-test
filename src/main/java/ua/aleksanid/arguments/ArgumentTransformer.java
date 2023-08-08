@@ -26,7 +26,7 @@ public class ArgumentTransformer {
         try {
             projectId = Long.parseLong(consoleArguments[PROJECT_ID_ARGUMENT_INDEX]);
         } catch (NumberFormatException numberFormatException) {
-            throw new RuntimeException(consoleArguments[PROJECT_ID_ARGUMENT_INDEX] + " is not valid project Id.");
+            throw new RuntimeException(consoleArguments[PROJECT_ID_ARGUMENT_INDEX] + " is not valid project Id. Must be a number.");
         }
 
         return new UploadArguments(
