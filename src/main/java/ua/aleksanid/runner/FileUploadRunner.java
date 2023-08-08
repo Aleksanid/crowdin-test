@@ -7,6 +7,7 @@ import ua.aleksanid.file.FileFinder;
 import ua.aleksanid.models.UploadArguments;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class FileUploadRunner {
@@ -20,7 +21,7 @@ public class FileUploadRunner {
         printArguments();
 
         System.out.println("Searching files by pattern");
-        List<Path> filesByPattern = FileFinder.findFilesByPattern(uploadArguments.getFilePattern());
+        List<Path> filesByPattern = FileFinder.findFilesByPattern(uploadArguments.getFilePattern(), Paths.get(""));
 
         if (filesByPattern.isEmpty()) {
             System.out.println("No files matching " + uploadArguments.getFilePattern() + " found");

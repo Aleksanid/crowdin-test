@@ -16,14 +16,6 @@ public class RegExFileVisitor extends SimpleFileVisitor<Path> {
     }
 
     @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-        if (!dir.getFileName().equals(Paths.get(""))) {
-            return FileVisitResult.SKIP_SUBTREE;
-        }
-        return FileVisitResult.CONTINUE;
-    }
-
-    @Override
     public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) {
         if (basicFileAttributes.isRegularFile() && pathMatcher.matches(path.getFileName())) {
             matchedFiles.add(path);
