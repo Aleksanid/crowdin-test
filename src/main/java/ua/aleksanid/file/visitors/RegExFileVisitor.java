@@ -1,6 +1,5 @@
 package ua.aleksanid.file.visitors;
 
-import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class RegExFileVisitor extends SimpleFileVisitor<Path> {
     }
 
     @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
         if (!dir.getFileName().equals(Paths.get(""))) {
             return FileVisitResult.SKIP_SUBTREE;
         }
@@ -25,7 +24,7 @@ public class RegExFileVisitor extends SimpleFileVisitor<Path> {
     }
 
     @Override
-    public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+    public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) {
         if (basicFileAttributes.isRegularFile() && pathMatcher.matches(path.getFileName())) {
             matchedFiles.add(path);
         }

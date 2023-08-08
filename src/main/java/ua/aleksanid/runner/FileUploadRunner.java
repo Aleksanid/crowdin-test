@@ -4,16 +4,20 @@ import com.crowdin.client.storage.model.Storage;
 import ua.aleksanid.crowdin.CrowdinClient;
 import ua.aleksanid.file.FileFinder;
 import ua.aleksanid.models.UploadArguments;
-import ua.aleksanid.validators.ArgumentTransformer;
+import ua.aleksanid.arguments.ArgumentTransformer;
 
 import java.nio.file.Path;
 import java.util.List;
 
 public class FileUploadRunner {
-    public static void runUploadFilesFromWorkingDirectory(String[] args){
-        UploadArguments uploadArguments = ArgumentTransformer.extractUploadArguments(args);
+    private final UploadArguments uploadArguments;
 
-        printArguments(uploadArguments);
+    public FileUploadRunner(String[] args) {
+        uploadArguments = ArgumentTransformer.extractUploadArguments(args);
+    }
+
+    public void runUploadFilesFromWorkingDirectory() {
+        printArguments();
 
         System.out.println("Searching files by pattern");
         List<Path> filesByPattern = FileFinder.findFilesByPattern(uploadArguments.getFilePattern());
@@ -25,13 +29,13 @@ public class FileUploadRunner {
 
         System.out.println("Found " + filesByPattern.size() + " files matching file pattern");
 
-        uploadFiles(filesByPattern, uploadArguments.getProjectId(), uploadArguments.getApiToken());
+        uploadFiles(filesByPattern);
 
         System.out.println("All files uploaded");
     }
 
 
-    private static void printArguments(UploadArguments uploadArguments) {
+    private void printArguments() {
         System.out.println("Next arguments supplied...");
 
         System.out.println("-- Project ID: " + uploadArguments.getProjectId());
@@ -39,14 +43,16 @@ public class FileUploadRunner {
         System.out.println("-- File pattern: " + uploadArguments.getFilePattern());
     }
 
-    private static void uploadFiles(List<Path> filesByPattern, Long projectId, String apiToken) {
-        CrowdinClient crowdinClient = new CrowdinClient(apiToken, null);
+    private void uploadFiles(List<Path> filesByPattern) {
+        System.out.println("Starting API client");
+        CrowdinClient crowdinClient = new CrowdinClient(uploadArguments.getApiToken(), null);
+        System.out.println("API client started");
 
         for (Path file : filesByPattern) {
-            System.out.println("Uploading " + file.getFileName().toString() + " to the Crowdin projectId: " + projectId);
+            System.out.println("Uploading " + file.getFileName().toString() + " to the Crowdin projectId: " + uploadArguments.getProjectId());
             Storage storage = crowdinClient.addStorageFile(file);
-            crowdinClient.addSourceFile(projectId, storage);
-            System.out.println("Successfully uploaded " + file.getFileName().toString() + " to the project id: " + projectId);
+            crowdinClient.addSourceFile(uploadArguments.getProjectId(), storage);
+            System.out.println("Successfully uploaded " + file.getFileName().toString() + " to the project id: " + uploadArguments.getProjectId());
         }
     }
 }

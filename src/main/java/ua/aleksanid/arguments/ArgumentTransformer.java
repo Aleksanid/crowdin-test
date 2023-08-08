@@ -1,4 +1,4 @@
-package ua.aleksanid.validators;
+package ua.aleksanid.arguments;
 
 import ua.aleksanid.models.UploadArguments;
 
@@ -16,8 +16,8 @@ public class ArgumentTransformer {
         if (consoleArguments.length != EXPECTED_ARGUMENTS_SIZE) {
             throw new RuntimeException(
                     MessageFormat.format(
-                            "Arguments number mismatch. Execution requires exactly {0} arguments." +
-                                    " Supplied {1} arguments. " +
+                            "Arguments number mismatch. Execution requires exactly {0} arguments. " +
+                                    "Supplied {1} arguments. " +
                                     "Please provide: Project ID, PAT, File Pattern as arguments",
                             EXPECTED_ARGUMENTS_SIZE, consoleArguments.length));
         }

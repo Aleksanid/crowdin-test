@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("[Execution started]");
         try {
-            FileUploadRunner.runUploadFilesFromWorkingDirectory(args);
+            new FileUploadRunner(args).runUploadFilesFromWorkingDirectory();
         } catch (RuntimeException runtimeException) {
             System.err.println("[ERROR]: " + runtimeException.getMessage());
             System.err.println("Debug trace: ");
